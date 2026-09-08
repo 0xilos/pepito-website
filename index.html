@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio - Windows 11 Edition</title>
+  <link rel="icon" type="image/png" href="pepito.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     :root {
@@ -28,7 +29,6 @@
       width: 100vw;
       height: 100vh;
       overflow: hidden;
-      /* Fond abstrait inspiré du thème Bloom Windows 11 */
       background: radial-gradient(circle at 50% 60%, #a8cbf5 0%, #4a77d4 35%, #182a60 100%);
       background-size: cover;
       position: relative;
@@ -79,7 +79,7 @@
       word-break: break-word;
     }
 
-    /* --- STYLE GÉNÉRIQUE DES FENÊTRES --- */
+    /* --- FENÊTRES --- */
     .window {
       position: absolute;
       background: rgba(243, 243, 243, 0.92);
@@ -155,7 +155,7 @@
       line-height: 1.5;
     }
 
-    /* Fenêtre Pepito - Style Photos Win11 */
+    /* Fenêtre Pepito */
     #window-pepito {
       width: 440px;
       height: 480px;
@@ -178,8 +178,9 @@
 
     .photo-frame img {
       max-width: 100%;
-      max-height: 85%;
+      max-height: 80%;
       object-fit: contain;
+      border-radius: 6px;
     }
 
     /* Fenêtre Projets */
@@ -256,16 +257,6 @@
 
     .task-icon:active {
       transform: scale(0.92);
-    }
-
-    .task-icon.active::after {
-      content: "";
-      position: absolute;
-      bottom: 2px;
-      width: 14px;
-      height: 3px;
-      border-radius: 2px;
-      background: var(--accent);
     }
 
     .system-tray {
@@ -365,8 +356,7 @@
     </div>
     <div class="window-body" style="background: #111; padding: 10px;">
       <div class="photo-frame">
-        <!-- Remplace 'pepito.png' par le chemin exact de ton image déjà hébergée -->
-        <img src="pepito.png" alt="Pépito" onerror="this.alt='Image pepito.png introuvable sur le chemin relatif'">
+        <img src="pepito.png" alt="Pépito" onerror="this.alt='Image pepito.png introuvable'">
         <span style="margin-top: 10px; font-size: 12px;">Pépito 🐾</span>
       </div>
     </div>
@@ -420,8 +410,8 @@
     </div>
     <div style="border-top: 1px solid #ddd; padding-top: 12px; display: flex; align-items: center; justify-content: space-between;">
       <div style="display: flex; align-items: center; gap: 8px;">
-        <i class="fa-regular fa-user-circle" style="font-size: 24px;"></i>
-        <strong style="font-size: 12px;">Mon Profil</strong>
+        <img src="pepito.png" alt="Pépito" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid #ccc;">
+        <strong style="font-size: 12px;">Session de Pépito</strong>
       </div>
       <i class="fa-solid fa-power-off" style="color: #d13438; cursor: pointer;"></i>
     </div>
@@ -429,12 +419,10 @@
 
   <!-- Barre des tâches -->
   <div class="taskbar">
-    <div></div> <!-- Spacer pour l'équilibre -->
+    <div></div>
     
-    <!-- Icônes centrées -->
     <div class="taskbar-center">
       <div class="task-icon" onclick="toggleStartMenu()">
-        <!-- Logo Windows 11 -->
         <i class="fa-brands fa-windows" style="color: #0078d4; font-size: 20px;"></i>
       </div>
       <div class="task-icon" onclick="openApp('window-projects')">
@@ -445,14 +433,12 @@
       </div>
     </div>
 
-    <!-- Zone horloge (systray) -->
     <div class="system-tray">
       <span id="taskbar-clock">12:00</span>
     </div>
   </div>
 
   <script>
-    // Ouvrir une application / fenêtre
     function openApp(id) {
       const win = document.getElementById(id);
       win.style.display = 'flex';
@@ -460,28 +446,25 @@
       closeStartMenu();
     }
 
-    // Fermer une fenêtre
     function closeApp(id) {
       document.getElementById(id).style.display = 'none';
     }
 
-    // Gérer l'ordre d'affichage (Z-Index)
     let topZ = 10;
     function bringToFront(win) {
       topZ++;
       win.style.zIndex = topZ;
     }
 
-    // Toggle menu Démarrer
     function toggleStartMenu() {
       const menu = document.getElementById('start-menu');
       menu.classList.toggle('open');
     }
+
     function closeStartMenu() {
       document.getElementById('start-menu').classList.remove('open');
     }
 
-    // Déplacement des fenêtres (Drag & Drop)
     function dragWindow(win, event) {
       bringToFront(win);
       let shiftX = event.clientX - win.getBoundingClientRect().left;
@@ -504,7 +487,6 @@
       };
     }
 
-    // Horloge dynamique
     function updateClock() {
       const now = new Date();
       document.getElementById('taskbar-clock').innerText = 
